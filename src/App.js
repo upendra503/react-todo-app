@@ -14,7 +14,7 @@ class App extends React.Component {
     this.setState({
       buttonTitle: title,
     });
-  };
+  }; 
   callignSecondChild = (title) => {
     this.setState({
       buttonTitle: title,
