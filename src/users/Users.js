@@ -1,27 +1,34 @@
 import React from 'react';
-
+import uniQueID from 'react-html-id';
 import User from './User';
 import PageTitle from '../pageInfo/Title';
 
-
 import OtherParent from '../parentToChildData/otherParent';
-
+import Login from '../login/Login';
+import UserForm from './userForm';
+import './user-styles.css';
 
 class Users extends React.Component {
   constructor(props) {
     super(props);
+    uniQueID.enableUniqueIds(this);
+    this.state = { isLoggedIn: false };
     this.state = {
+      showUserForm: true,
       count: 0,
       users: [
         {
+          id: this.nextUniqueId(),
           name: 'Upendra',
           age: 30,
         },
         {
+          id: this.nextUniqueId(),
           name: 'Murali',
           age: 35,
         },
         {
+          id: this.nextUniqueId(),
           name: 'Ravi',
           age: 40,
         },
@@ -88,46 +95,65 @@ class Users extends React.Component {
       userListPageTitle: e.target.value,
     });
   };
+  addUser = () => {
+    this.setState({
+      showUserForm: false,
+    });
+  };
+  insertUser = (userInfo) => {
+    console.log(userInfo);
+    // e.preventDefault();
+    //const newUser = Object.assign(userInfo, this.state.users);
+    userInfo.id=this.nextUniqueId();
+    const newUser = [...this.state.users,userInfo];
+    console.log('newUser ', newUser);
+    this.setState({
+      users: newUser,
+      showUserForm: true,
+    });
+    console.log('State ', this.state);
+  };
+  deleteUser = (id) => {
+    console.log('Deleted id ', id);
+    let tempStateData = this.state.users.filter((user) => user.id != id);
+    console.log('After ', tempStateData);
+    this.setState({
+      users: tempStateData,
+    });
+  };
   render() {
+    const showUserForm = this.state.showUserForm;
+    const isLoggedIn = !this.state.isLoggedIn;
+
     return (
       <div>
-        <div>
-          <PageTitle name={this.state.userListPageTitle} />
+        <div className="users-info">
+          <span>
+            <PageTitle name={this.state.showUserForm} />
+          </span>
+          <span>
+            <button onClick={this.addUser}>Add User</button>
+          </span>
         </div>
-        <OtherParent />
-        {/* <button onClick={this.changePageTitleButtonClick}>
-          Change Page Title - butoon click
-        </button>
-        <br />
-        <button onClick={this.changePageTitle.bind(this, 'Bind event')}>
-          Change Page Title - butoon click - bind
-        </button>
-        <br />
-        <br />
-        <form>
-          <input
-            type="text"
-            onChange={this.changePageNameInput}
-            value={this.state.userListPageTitle}
-            name="firstName"
-          />
-        </form>
-        <br />
-        <br />
-        <button onClick={this.checkValues}>CheckpageInfo</button>
-        <br />
-        <br /> */}
-        <button onClick={this.updateUsers}>UpdateUsers</button>
-        <br />
+
         <ul>
-          {this.state.users.map((user) => {
-            return (
-              <li key={user.age}>
-                <User age={user.age}>{user.name}</User>
-              </li>
-            );
-          })}
+          {showUserForm &&
+            this.state.users.map((user) => {
+              return (
+                <li key={user.id}>
+                  <User
+                    deleteUser={this.deleteUser.bind(this, user.id)}
+                    age={user.age}
+                  >
+                    {user.name}
+                  </User>
+                </li>
+              );
+            })}
         </ul>
+        <div className="user-form-container">
+          {!showUserForm && <UserForm getUserDetails={this.insertUser} />}
+        </div>
       </div>
     );
   }

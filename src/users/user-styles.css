@@ -1,0 +1,13 @@
+.delete-user-button {
+  padding-left: 20px;
+}
+.user-row {
+  padding-bottom: 10px;
+}
+ul li {
+  list-style: none;
+}
+.users-info span {
+  display: inline-block;
+  margin: 0 20px;
+}

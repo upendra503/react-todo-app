@@ -14,7 +14,7 @@ class App extends React.Component {
     this.setState({
       buttonTitle: title,
     });
-  }; 
+  };
   callignSecondChild = (title) => {
     this.setState({
       buttonTitle: title,
@@ -27,6 +27,7 @@ class App extends React.Component {
           <LoadHeaderName />
         </h1>
         <Users title="List of Users">Test</Users>
+        {/* Below commented code - grand parent, Parent child communication 
         <Parent
           doFirstFromParent={this.callignFirstChild.bind(
             this,
@@ -38,6 +39,7 @@ class App extends React.Component {
           )}
           name={this.state.buttonTitle}
         />
+        */}
       </div>
     );
   }
