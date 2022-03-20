@@ -145,10 +145,6 @@ Inorder to use the global state we need to use
 mapStateToProps,
 
 mapDispachToProps
- to Connect
-
-
+to Connect
 
 <!-- export default connect(mapStateToProps, mapDispachToProps)(App) -->
-
-
