@@ -149,3 +149,6 @@ mapDispachToProps
 
 
 
+<!-- export default connect(mapStateToProps, mapDispachToProps)(App) -->
+
+
