@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
 import Users from './users/Users';
 import Parent from './parentChild/Parent';
 import './style.css';
@@ -20,6 +22,18 @@ class App extends React.Component {
       buttonTitle: title,
     });
   };
+  // incrementAge = () => {
+  //   let newAge = this.state.age + 1;
+  //   this.setState({
+  //     age: newAge,
+  //   });
+  // };
+  // decrementAge = () => {
+  //   let newAge = this.state.age - 1;
+  //   this.setState({
+  //     age: newAge,
+  //   });
+  // };
   render() {
     return (
       <div>
@@ -40,6 +54,11 @@ class App extends React.Component {
           name={this.state.buttonTitle}
         />
         */}
+        <div>Redux buttons State Data--Age: {this.props.age}</div>
+        <button onClick={this.props.incrementAge}>Age Up</button>
+        <br />
+        <br />
+        <button onClick={this.props.decrementAge}>Age Down</button>
       </div>
     );
   }
@@ -47,4 +66,18 @@ class App extends React.Component {
 function LoadHeaderName() {
   return <div>Hello Users App</div>;
 }
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    age: state.age,
+  };
+};
+
+const mapDispatchToProps = (dispach) => {
+  return {
+    incrementAge: () => dispach({ type: 'ADD' }),
+    decrementAge: () => dispach({ type: 'SUB' }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

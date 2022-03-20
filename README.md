@@ -87,11 +87,12 @@ use e.target.value;
 <!-- Controlled and un controlled Components -->
 
 <!-- Controlled  -->
+
 A component, which takes its current value from props and notifies changes through callback function like onChange. A parent component controls it by handling callback and mainatian their own state and passing its values through props.
 <input type="text" value={value} onChange={handleChange} />
 
-
 <!-- Un Controlled  -->
+
 A component which stores it state internally and we access teh component using ref.
 <input type="text" defaultValue="foo" ref={inputRef} />
 
@@ -100,12 +101,51 @@ A component which stores it state internally and we access teh component using r
 If we extend a component with React.PureComponent,
 Then there is no need of shouldComponentUpdate() method, because pure component compares current prop and state valuea and new props and state values whther both are same or not. if same it won't re-render the component.
 
-<!-- 
+<!--
 import React from ‘react’;
-  
+
 export default class Test extends React.PureComponent{
    render(){
       return <h1>Welcome to GeeksforGeeks</h1>;
    }
-} 
+}
 -->
+
+<!-- React - Redux -->
+
+we need to install two packages
+
+npm i redux
+npm i react-redux
+
+react-redux is a provider, so if we supply something to Provider, it will be available through out the application, So we need to import react-redux in index.js file
+
+<!--
+
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import reducer from './store/reducer';
+
+import App from './App';
+
+const store = createStore(reducer);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+); -->
+
+import { connect } from ''react-redux'
+
+Inorder to use the global state we need to use
+
+mapStateToProps,
+
+mapDispachToProps
+ to Connect
+
+
+
